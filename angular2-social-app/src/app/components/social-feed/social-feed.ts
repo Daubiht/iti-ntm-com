@@ -21,7 +21,10 @@ export class SocialFeedComponent implements OnInit {
     ) {}
 
     onSubmit(message: string) {
-       
+
+        this.postService.post(this.channelId, message)
+        .then()
+        .catch(e => console.error(e));
     }
 
     ngOnInit() {
@@ -34,5 +37,7 @@ export class SocialFeedComponent implements OnInit {
                         this.items = items
                     });
             } );
+
+            this.postSocket.onPost(post => this.items.unshift(post));
     }
 }

@@ -1,7 +1,9 @@
 <div class="header">
     <div class="user-picture">
+            {{ post.user.pictureUrl }}
     </div>
     <div class="username">
+            {{ post.user.username }}
     </div>
     <div class="right">
         <div class="actions">
@@ -9,15 +11,16 @@
                 <i class="glyphicon glyphicon-heart"></i>
             </a>
         </div>
-        <div class="date"></div>
+        <div class="date">{{ post.creationTime | date }}</div>
     </div>
 </div>
 <div class="body">
-    <pre class="message"></pre>
+    <pre class="message">{{ post.message }}</pre>
     <!-- post.content here -->
 </div>
 <div class="footer">
     <!-- Comments here -->
+    <div *ngFor="let comment of post.comments">{{comment.message}}</div>
     <user-inputs [channelId]="post.channel.id" (submitted)="onComment($event)"></user-inputs>
 </div>
 <style>

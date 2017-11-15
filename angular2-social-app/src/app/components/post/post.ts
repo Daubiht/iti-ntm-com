@@ -6,21 +6,25 @@ import { PostService, PostSocketService, LoggedUser, MessageParser } from 'servi
  * Display a user post with comments and like 
  */
 @Component({
-  selector: 'post',
-  templateUrl: 'post.html'
+    selector: 'post',
+    templateUrl: 'post.html'
 })
-export class PostComponent { 
+export class PostComponent {
     @Input() post: Post;
-    
+
     constructor(
-        private postSocket: PostSocketService, 
+        private postSocket: PostSocketService,
         private user: LoggedUser,
         private postService: PostService,
         private parser: MessageParser
-    ) {}
+    ) { }
 
     ngOnInit() {
-        this.post.content = this.parser.parse(this.post);
+        this.postSocket.onComment(comment => {
+            if (this.post.id === comment.post.id) {
+                this.post.comments.push(comment)
+            }
+        })
     }
 
     /**
@@ -28,5 +32,8 @@ export class PostComponent {
      * @param message message to send
      */
     onComment(message: string) {
+        this.postService.comment(this.post, message)
+            .then(e => console.log(e))
+            .catch(e => console.error(e));
     }
 }

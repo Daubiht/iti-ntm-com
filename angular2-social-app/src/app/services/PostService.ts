@@ -41,5 +41,9 @@ export class PostService {
         post.user = this.user;
         const url = `${this.config.url}/api/post/${post.id}/comment`;
         // post the comment
+        return this.http
+        .post(url, {message})
+        .map(r => r.json())
+        .toPromise();
     }
 }

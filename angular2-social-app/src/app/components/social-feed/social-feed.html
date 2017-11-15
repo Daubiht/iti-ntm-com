@@ -1,5 +1,7 @@
 <div class="social-app-feed">
     <!-- <post></post> -->
+    <post *ngFor="let item of items" [post]="item">
+    </post>
 </div>
 <div class="social-app-inputs">
     <user-inputs (submitted)="onSubmit($event)" [channelId]="channelId"></user-inputs>
