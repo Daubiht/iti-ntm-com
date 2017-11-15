@@ -9,5 +9,5 @@ import { Channel } from 'models';
     templateUrl: 'menu.html'
 })
 export class MenuComponent {
-    @Input() channels: Channel[] = [];
+    @Input() channels: Channel[];
 }
