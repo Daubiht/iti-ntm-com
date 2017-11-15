@@ -21,13 +21,12 @@ export class LoginComponent {
     login() {
         this.failed = false;
         // use authService to authenticate and router to redirect
-        this.authService.authenticate(this.model).then(response => {
-            if (response) {
+        this.authService.authenticate(this.model)
+            .then(() => {
                 this.router.navigateByUrl('/');
-            }
-            else {
-                alert('Utilisateur ou mot de passe incorrect');
-            }
-        })
+            })
+            .catch(error => {
+                console.log(error); alert('Utilisateur ou mot de passe incorrect');
+            });
     }
 }
