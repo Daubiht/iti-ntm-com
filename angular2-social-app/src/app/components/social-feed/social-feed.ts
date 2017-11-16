@@ -38,6 +38,8 @@ export class SocialFeedComponent implements OnInit {
                     });
             } );
 
-            this.postSocket.onPost(post => this.items.unshift(post));
+            this.postSocket.onPost(post =>  {
+                this.items.unshift(post);
+            });
     }
 }

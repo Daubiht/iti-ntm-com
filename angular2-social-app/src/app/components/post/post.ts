@@ -11,6 +11,7 @@ import { PostService, PostSocketService, LoggedUser, MessageParser } from 'servi
 })
 export class PostComponent {
     @Input() post: Post;
+    msg: string;
 
     constructor(
         private postSocket: PostSocketService,
@@ -20,6 +21,23 @@ export class PostComponent {
     ) { }
 
     ngOnInit() {
+
+
+        let result: any = this.parser.parse(this.post);
+        if(result) {
+            if(result.type == 'video') {
+                this.post.message += '<video width="320 height="240" controls><source src="'+result.value.videoUrl+'"></video>';
+            
+            } else if(result.type == 'picture') {
+                this.post.message += '<img src="'+result.value.pictureUrl+'">';
+            
+            } else if(result.type == 'youtube') {
+                this.post.message += '<iframe width="320" height="240" src="'+result.value.videoId+'" frameborder="0" allowfullscreen></iframe>';
+            }
+        }
+
+        this.msg = this.post.message;
+
         this.postSocket.onComment(comment => {
             if (this.post.id === comment.post.id) {
                 this.post.comments.push(comment)
