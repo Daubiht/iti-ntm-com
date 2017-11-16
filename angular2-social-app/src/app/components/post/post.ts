@@ -21,18 +21,19 @@ export class PostComponent {
     ) { }
 
     ngOnInit() {
-
-
         let result: any = this.parser.parse(this.post);
+        debugger;
         if(result) {
             if(result.type == 'video') {
-                this.post.message += '<video width="320 height="240" controls><source src="'+result.value.videoUrl+'"></video>';
+                this.post.message += '\n <video width="320 height="240" controls><source src="'+result.value.mediaUrl+'"></video>';
             
             } else if(result.type == 'picture') {
-                this.post.message += '<img src="'+result.value.pictureUrl+'">';
+                this.post.message += '\n <img src="'+result.value.mediaUrl+'">';
             
             } else if(result.type == 'youtube') {
-                this.post.message += '<iframe width="320" height="240" src="'+result.value.videoId+'" frameborder="0" allowfullscreen></iframe>';
+                debugger;
+                this.post.message += '\n <iframe width="320" height="240" src="'+result.value.videoId+'" frameborder="0" allowfullscreen></iframe>';
+                
             }
         }
 
